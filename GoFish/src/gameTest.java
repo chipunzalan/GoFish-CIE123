@@ -8,8 +8,6 @@ public class gameTest {
 
 	@Test
 	public void testMain() {
-		
-	
 	}
 
 	@Test
@@ -119,5 +117,4 @@ public class gameTest {
 		assertEquals("51", "CK", game.getCard(51));		
 		System.out.println(",");
 	}
-
 }

@@ -6,8 +6,11 @@
 
 
 import java.util.Random;
+import java.io.*;
 
 public class game {
+	public static boolean gofish = true;
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		System.out.println("GoFish!");
@@ -16,15 +19,20 @@ public class game {
 		//Initialization of arrays to be used
 		int cards[]= new int[52] ;
 		int player[] = new int[7];
+		String playercards[] = new String[7];
 		int opponent[] = new int[7];
+		String opponentcards[] = new String[7];
 		int deck[] = new int[39];
+		String deckcards[] = new String[39];
 		for(int i=0; i<52; i++) cards[i]=0;
 		for(int i=0;i<7; i++) player[i]=0;
 		for(int i=0; i<7; i++) opponent[i]=0;
 		boolean same = false; //checks if there are repeated cards
 		Random randomGenerator = new Random(); //random number constructor
+		boolean gofish = false;
+		String response = null;
 		
-		/*generates random numbers and places them in an array representing
+		/**generates random numbers and places them in an array representing
 		 * the deck. the deck is then distributed as follows:
 		 * -1st 7 cards goes to the player
 		 * -2nd 7 cards goes to the opponent
@@ -50,26 +58,82 @@ public class game {
 		//Prints out the player's cards-on-hand
 		System.out.print("Player's hand: ");
 		for(int i=0; i<7; i++) {
-			getCard(player[i]);
+			playercards[i]=getCard(player[i]);
 			System.out.print(",");
 		}
 		//Prints out the opponent's cards-on-hand
 		System.out.println("");
 		System.out.print("Opponent's hand: ");
 		for(int i=0; i<7;i++) {
-			getCard(opponent[i]);
+			opponentcards[i] = getCard(opponent[i]);
 			System.out.print(",");
 		}
 		//Prints out the cards left on the deck
 		System.out.println("");
 		System.out.println("Deck:");
 		for(int i=0; i<38;i++) {
-			getCard(deck[i]);
+			deckcards[i] = getCard(deck[i]);
 			System.out.print(",");
 		}
+		
+		/* For double checking the arrays
+		System.out.println("");
+		for(int i=0; i<7; i++) {
+			System.out.print(playercards[i]+ ", ");
+		}
+		System.out.println("");
+		for(int i=0; i<7; i++) {
+			System.out.print(opponentcards[i]+ ", ");
+		}
+		System.out.println("");
+		for(int i=0; i<38;i++) {
+			System.out.print(deckcards[i]+", ");
+		}
+		*/
+		
+		//for asking user for card input
+		System.out.println("");
+		System.out.print("Ask opponent for card:");
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		try {
+			response = br.readLine();
+			System.out.println("You asked for: " + response);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("IO error trying to read your name!");
+	        System.exit(1);
+		}
+		
+		//checking opponent's deck for the card
+		for (int i=0; i < opponentcards.length;i++) {
+			if(opponentcards[i].equals(response)) {
+				System.out.println("FOUND! " + response);
+				opponentcards[i] = "";
+				gofish = false;
+				break;
+			}
+			else gofish = true;				
+			}
+		
+		
+		//prints out "Go Fish!" if card isn't found
+		if(gofish) System.out.println("Go Fish!");
+		else {
+			System.out.println("");
+			System.out.println("Player's new hand: ");
+			for(int i=0; i<playercards.length; i++) {
+				System.out.print(playercards[i]+ ", ");
+			}
+			System.out.println("");
+			System.out.println("Opponent's new hand: ");
+			for(int i=0; i<opponentcards.length; i++) {
+				System.out.print(opponentcards[i]+ ", ");
+			}
+		}
+		
 	}
 	
-	/*Converts the randomly-generated number into a corresponding
+	/** getCard: Converts the randomly-generated number into a corresponding
 	 * card by printing out the characters
 	 */
 	public static String getCard(int cardnumber) {
@@ -130,21 +194,23 @@ public class game {
 			cardname = cardname.concat("9");
 		}
 		else if (card == 9) {
-			System.out.print("10"); //jack
+			System.out.print("10"); //ten
 			cardname = cardname.concat("10");
 		}
 		else if (card == 10) {
-			System.out.print("J"); //queen
+			System.out.print("J"); //jack
 			cardname = cardname.concat("J");
 		}
 		else if (card == 11) {
-			System.out.print("Q"); //king
+			System.out.print("Q"); //queen
 			cardname = cardname.concat("Q");
 		}
 		else if (card == 12) {
-			System.out.print("K"); //joker
+			System.out.print("K"); //king
 			cardname = cardname.concat("K");
 		}
 		return cardname;
-		}
+	}
+
+	
 }
