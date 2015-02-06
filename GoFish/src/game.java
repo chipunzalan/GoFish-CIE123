@@ -19,6 +19,9 @@ import java.util.ArrayList;
  * 
  */
 public class game {
+	/**
+	 * Go Fish game to start
+	 */
 	public static boolean gofish = true;
 
 	/**
@@ -30,7 +33,7 @@ public class game {
 	public ArrayList<Integer> cards = new ArrayList<Integer>();
 
 	/**
-	 * String arraylist to hold string values of cards currently held
+	 * String ArrayList to hold string values of cards currently held
 	 */
 	public ArrayList<String> humanhand = new ArrayList<String>();
 	public ArrayList<String> pchand = new ArrayList<String>();
