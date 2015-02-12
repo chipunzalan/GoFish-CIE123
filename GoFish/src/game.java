@@ -7,6 +7,7 @@
 import java.util.Random;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays.*;
 
 public class game {
 	public static boolean gofish = true;
@@ -21,6 +22,9 @@ public class game {
 	public ArrayList<String> humanhand = new ArrayList<String>();
 	public ArrayList<String> pchand = new ArrayList<String>();
 	public ArrayList<String> deckstack = new ArrayList<String>();
+	public String[] cardletter = {"A","2","3","4","5","6","7","8","9","T","J","Q","K"};
+	public int[] humanbooks = new int[13];
+	public int[] pcbooks = new int[13];
 	public String response;
 	public boolean drawcard;
 	public Integer bookcount;
@@ -202,11 +206,23 @@ public class game {
 		else if (card == 6) cardname = cardname.concat("7");
 		else if (card == 7) cardname = cardname.concat("8");
 		else if (card == 8) cardname = cardname.concat("9");
-		else if (card == 9) cardname = cardname.concat("10");
+		else if (card == 9) cardname = cardname.concat("T"); //Ten
 		else if (card == 10) cardname = cardname.concat("J"); //Jack
 		else if (card == 11) cardname = cardname.concat("Q"); //Queen
 		else if (card == 12) cardname = cardname.concat("K"); //King
 
 		return cardname;
 	}	
+
+	//Checks the number of books formed by cards from human's deck
+	public void checkHumanBooks() {
+		for (int i=0; i < cardletter.length+1; i++) {
+			for(int j = 0; j<humanhand.size(); j++) {
+				String currentcard = String.valueOf(humanhand.get(j).charAt(1));
+				if(currentcard.equals(cardletter[i])) {
+					humanbooks[i]++;
+				}
+			}
+		}
+	}
 }
