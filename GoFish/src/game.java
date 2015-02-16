@@ -22,6 +22,8 @@ public class game {
 	public ArrayList<String> humanhand = new ArrayList<String>();
 	public ArrayList<String> pchand = new ArrayList<String>();
 	public ArrayList<String> deckstack = new ArrayList<String>();
+	public ArrayList<String> humandroppedbooks = new ArrayList<String>();
+	public ArrayList<String> pcdroppedbooks = new ArrayList<String>();
 	public String[] cardletter = {"A","2","3","4","5","6","7","8","9","T","J","Q","K"};
 	public int[] humanbooks = new int[14];
 	public int[] pcbooks = new int[14];
@@ -56,6 +58,7 @@ public class game {
 				goFish.askCard();
 				goFish.checkCard();
 				goFish.checkHumanBooks();
+				goFish.dropHumanBooks();
 				turnNum = 1;
 			}
 			else if(turnNum == 1) {
@@ -221,6 +224,7 @@ public class game {
 	public void checkHumanBooks() {
 		System.out.print("Human Books|");
 		for (int i=0; i < cardletter.length; i++) {
+			humanbooks[i]=0;
 			for(int j = 0; j<humanhand.size(); j++) {
 				String thiscard= humanhand.get(j);
 				String currentcard = thiscard.substring(1);
@@ -233,11 +237,28 @@ public class game {
 		System.out.println();
 	}
 
+	public void dropHumanBooks() {
+		for(int i=0;i<cardletter.length; i++){
+			if(humanbooks[i]==4) {
+				for(int j=0; j<humanhand.size();j++) {
+					String cardnow = humanhand.get(j);
+					String currentcard = cardnow.substring(1);
+					if(currentcard.equals(cardletter[i])) {
+						humanhand.remove(j);
+					}
+				}
+				humandroppedbooks.add(cardletter[i]);
+			}
+		}
+		System.out.println(humandroppedbooks);
+	}
+
 	//Checks the number of books formed by cards from PC's deck
 	//Prints out a count of cards per kind
 	public void checkPCBooks() {
 		System.out.print("PC Books|");
 		for (int i=0; i < cardletter.length; i++) {
+			pcbooks[i]=0;
 			for(int j = 0; j<pchand.size(); j++) {
 				String thiscard= pchand.get(j);
 				String currentcard = thiscard.substring(1);
@@ -249,4 +270,6 @@ public class game {
 		}
 		System.out.println();
 	}
+
+
 }
