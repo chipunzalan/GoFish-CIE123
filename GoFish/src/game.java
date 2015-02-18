@@ -55,23 +55,35 @@ public class game {
 		*/
 		while(!booksdone) {
 			if(turnNum==0) {
-				goFish.askCard();
-				goFish.checkCard();
-				goFish.checkHumanBooks();
-				goFish.dropHumanBooks();
-				turnNum = 1;
+				goFish.askCard(); //Ask for card
+				goFish.checkCard(); //Check from opponent's deck
+				goFish.checkHumanBooks(); //Count cards per book
+				goFish.dropHumanBooks(); //Drops completed books
+				turnNum = 1; //Sets turn to PC
 			}
+
 			else if(turnNum == 1) {
-				goFish.askCardPC();
-				goFish.checkPCBooks();
-				turnNum = 0;
+				goFish.askCardPC(); //PC generates random card request
+				goFish.checkPCBooks(); //Count cards per book
+				goFish.dropPCBooks(); //Drop completed books
+				turnNum = 0; //Sets turn to human
 			}
+			System.out.println();
+			/* Checks for the total number of dropped books. There should be a total of 13 books dropped by both PC and human.
+			*/
+			int totalbooks = humandroppedbooks.size() + pcdroppedbooks.size();
+			if(totalbooks ==13) booksdone = true;
+		}
+		/* When all books have been dropped, the program checks for the winner and exits the program.
+		*/
+		if(booksdone) {
+			goFish.declareWinner(); //Checks for the winner of the game
+			System.exit(0); //Exits program
 		}
 		
 	}
 	
-	/* Creates a randomized set of values from 1-52 to represent each card.
-	Cards are then "shuffled" into ArrayLists for the player, the PC and the remaining card deck.
+	/* Creates a randomized set of values from 1-52 to represent each card. Cards are then "shuffled" into ArrayLists for the player, the PC and the remaining card deck.
 	*/
 	public void randomCards() {
 		boolean same = false;
@@ -158,8 +170,7 @@ public class game {
 		else printCards();
 	}
 
-	/*Automation of the process wherein the PC requests a card from the human
-	*The request is randomly generated as well
+	/* Automation of the process wherein the PC requests a card from the human. The request is randomly generated as well.
 	*/
 	public void askCardPC() {
 		Random randomGenerator = new Random();
@@ -180,14 +191,28 @@ public class game {
 		else printCards();
 	}
 
+	/* When the card requested isn't available from the opponent's deck, the top card is drawn from the main deck of cards. If the deck runs out of cards, the first card from the opponent's hand is drawn instead.
+	*/
 	public void getFromDeck(int turn) {
-		if(turn == 0) {
-			humanhand.add(deckstack.get(0)); //top card is added to human's hand
-			deckstack.remove(0); //top card is removed from deck
+		if(deckstack.size()>0) {
+			if(turn == 0) {
+				humanhand.add(deckstack.get(0)); //top card is added to human's hand
+				deckstack.remove(0); //top card is removed from deck
+			}
+			else if(turn==1) {
+				pchand.add(deckstack.get(0)); //top card is added to PC's hand
+				deckstack.remove(0); //top card is removed from deck
+			}
 		}
-		else if(turn==1) {
-			pchand.add(deckstack.get(0)); //top card is added to PC's hand
-			deckstack.remove(0); //top card is removed from deck
+		else {
+			if(turn==0) {
+				humanhand.add(pchand.get(0)); // top card is added from pc to human hand
+				pchand.remove(0); //top card is removed from pc's hand
+			}
+			else if(turn==1) {
+				pchand.add(humanhand.get(0)); // top card is added from human to pc hand
+				humanhand.remove(0); //top card is removed from human's hand
+			}
 		}
 		printCards();
 	}
@@ -219,8 +244,7 @@ public class game {
 		return cardname;
 	}	
 
-	//Checks the number of books formed by cards from human's deck
-	//Prints out a count of cards per kind
+	//Checks the number of books formed by cards from human's deck. Prints out a count of cards per kind
 	public void checkHumanBooks() {
 		System.out.print("Human Books|");
 		for (int i=0; i < cardletter.length; i++) {
@@ -237,6 +261,7 @@ public class game {
 		System.out.println();
 	}
 
+	//Checks for completed books in human's deck, drops completed books and removes respective cards from human's deck
 	public void dropHumanBooks() {
 		for(int i=0;i<cardletter.length; i++){
 			if(humanbooks[i]==4) {
@@ -244,17 +269,16 @@ public class game {
 					String cardnow = humanhand.get(j);
 					String currentcard = cardnow.substring(1);
 					if(currentcard.equals(cardletter[i])) {
-						humanhand.remove(j);
+						humanhand.remove(j); //removes card from hand
 					}
 				}
-				humandroppedbooks.add(cardletter[i]);
+				humandroppedbooks.add(cardletter[i]); //adds 
 			}
 		}
-		System.out.println(humandroppedbooks);
+		System.out.println(humandroppedbooks+"//"+humandroppedbooks.size());
 	}
 
-	//Checks the number of books formed by cards from PC's deck
-	//Prints out a count of cards per kind
+	//Checks the number of books formed by cards from PC's deck. Prints out a count of cards per kind
 	public void checkPCBooks() {
 		System.out.print("PC Books|");
 		for (int i=0; i < cardletter.length; i++) {
@@ -271,5 +295,38 @@ public class game {
 		System.out.println();
 	}
 
+	//Checks for completed books in PC's hand, drops completed books and removes respective cards from PC's hand
+	public void dropPCBooks() {
+		for(int i=0; i<cardletter.length; i++) {
+			if(pcbooks[i]==4) {
+				for(int j=0; j<pchand.size();j++) {
+					String cardnow = pchand.get(j);
+					String currentcard = cardnow.substring(1);
+					if(currentcard.equals(cardletter[i])) {
+						pchand.remove(j); //removes card from hand
+					}
+				}
+				pcdroppedbooks.add(cardletter[i]);
+			}
+		}
+		System.out.println(pcdroppedbooks + "//" +pcdroppedbooks.size());
+	}
+
+	//Compares number of completed books and outputs results
+	public void declareWinner() {
+		int humannum = humandroppedbooks.size();
+		int pcnum = pcdroppedbooks.size();
+
+		if(humannum>pcnum) {
+			System.out.println("	- - - - - - - - - -");
+			System.out.println("	|  Winner: Human  |");
+			System.out.println("	- - - - - - - - - -");
+		}
+		else {
+			System.out.println("	- - - - - - - - - -");
+			System.out.println("	|    Winner: PC   |");
+			System.out.println("	- - - - - - - - - -");
+		}
+	}
 
 }
