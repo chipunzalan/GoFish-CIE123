@@ -90,7 +90,6 @@ public class game {
 	 * function randomCards:
 	 * Creates a randomized set of values from 1-52 to represent each card.
 	 * Cards are then "shuffled" into ArrayLists for the player, the PC and the remaining card deck.
-	 * The function also checks that the generated random numbers are unique.
 	 * 
 	 */
 	public void randomCards() {
@@ -121,23 +120,22 @@ public class game {
 
 	/** 
 	 * function moveCards:
-	 * Converts the integer valued cards into string lists.
-	 * Valued cards involve the human hand, PC hand and deck.
+	 * Converts the integer valued cards into string lists
 	 * 
 	 */
 	public void moveCards() {
 		System.out.print("Player's deck: ");
-		for(int i=0; i<human.size(); i++) { 
+		for(int i=0; i<human.size(); i++) { //converting integer values for the human hand into string
 			humanhand.add(getCard(human.get(i)));
 		}
 		System.out.println(humanhand+" // "+humanhand.size());
 		System.out.print("PC's deck: ");
-		for(int i=0; i<pc.size(); i++) { 
+		for(int i=0; i<pc.size(); i++) { //converting integer values for the PC hand into string
 			pchand.add(getCard(pc.get(i)));
 		}
 		System.out.println(pchand+" // "+pchand.size());
 		System.out.print("Cards: ");
-		for(int i=0; i<deck.size(); i++) { 
+		for(int i=0; i<deck.size(); i++) { //converting integer values for the deck into string
 			deckstack.add(getCard(deck.get(i)));
 		}
 		System.out.println(deckstack +" // "+deckstack.size());
@@ -162,14 +160,13 @@ public class game {
 	 * function askCard:
 	 * Requests a string input from the user representing requested card
 	 * @return <i>response</i> (for the requested card card)
-	 * <i>response.toUpperCase()</i> capitalizes string input
 	 */
 	public void askCard() {
 		System.out.print("Ask opponent for card:");
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		try {
 			response = br.readLine();
-			response.toUpperCase(); 
+			response.toUpperCase(); //capitalizes string input
 			System.out.println("You asked for: " + response);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -180,10 +177,7 @@ public class game {
 
 	/**
 	 * function checkCard:
-	 * For checking the PC's deck for human's requested card.
-	 * If the requested card is equal to any of the PC hand's cards,
-	 * the card will be removed from the PC hand. If not,
-	 * the player will get a card from the top of the deck.
+	 * For checking the PC's deck for human's requested card
 	 */
 	public void checkCard() {
 		for (int i=0; i < pchand.size();i++) {
@@ -203,17 +197,14 @@ public class game {
 
 	/**
 	 * function askCardPC:
-	 * Automation of the process wherein the PC requests a card from the human.
-	 * The request is randomly generated as well.
-	 * If the requested card is equal to any of the player hand's cards,
-	 * the card will be removed from the player hand. If not,
-	 * the PC will get a card from the top of the deck.
+	 * Automation of the process wherein the PC requests a card from the human
+	 * The request is randomly generated as well
 	 */
 	public void askCardPC() {
 		Random randomGenerator = new Random();
 		response = getCard(randomGenerator.nextInt(52));
 		System.out.println("PC asked for: "+response);
-		for(int i=0; i<humanhand.size();i++) {
+		for(int i=0; i<humanhand.size();i++) { //for checking opponent's deck
 			if(humanhand.get(i).equals(response)) {
 				pchand.add(humanhand.get(i));
 				humanhand.remove(i);
@@ -232,8 +223,7 @@ public class game {
 	 * function getFromDeck:
 	 * the function lets a player get a card from the top pile of the deck.
 	 * @param turn (0 is assigned to the human hand, 1 is assigned to the PC hand)
-	 * If 0, the top card is added to the human hand, and the top card of the deck is removed.
-	 * If 1, the top card is added to the PC hand, and the top card of the deck is removed.
+	 * 
 	 */
 	
 	public void getFromDeck(int turn) {
@@ -253,8 +243,6 @@ public class game {
 	 * converts the randomly-generated number into a corresponding string value
 	 * @param cardnumber (random number generated)
 	 * @return Suit letter (D,H,S or C) and card number (A, 2-10, J,Q, or K)
-	 * D refers to Diamond, H refers to Hearts, S refers to Spades, and C refers to clubs.
-	 * A is for Ace, J is for Jack, Q is for Queen, and K is for King.
 	 */
 	public static String getCard(int cardnumber) {
 		int suit = cardnumber/13;

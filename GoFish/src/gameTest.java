@@ -8,41 +8,75 @@ public class gameTest {
 	@Test
 	public void testMain() {
 		//test main function
+		/*
+		 * No bug in input of any character in "You asked for:"
+		 * because the response is getting a card regardless any character besides the card characters that
+		 * are in the PC hand.
+		 * 
+		 */
 	}
 
 	@Test
 	public void testRandomCards() {
-		
+		/*
+		 * RandomCards are tested by checking if any cards distributed to the player hand, PC hand and deck are repeated.
+		 * Manually checked: 
+		 * 1. All 52 cards are present
+		 * 2. No cards are repeating
+		 * 3. No cards are repeating from deck, player hand and PC hand
+		 * 
+		 */
 	}
 
 	@Test
 	public void testMoveCards() {
-	
+		/*
+		 * MoveCards() are tested if the cards moved from hand to hand and deck to hand are consistent.
+		 * So far, no bugs are reported.
+		 */
 	}
 
 	@Test
 	public void testPrintCards() {
-		
+		/*
+		 * PrintCards() were able to execute the printing of cards on player hand, PC hand, and deck.
+		 */
 	}
 
 	@Test
 	public void testAskCard() {
-		
+		/*
+		 * AskCard is successful in noting the particular card to be asked.
+		 * 
+		 */
 	}
 
 	@Test
 	public void testCheckCard() {
-		
+		/*
+		 * CheckCard() is successful to check if PC hand has the asked particular card.
+		 * Bugs in function:
+		 * 1. lower case letters are not recognized as the same as the card characters.
+		 * For example: sA !=SA
+		 * 2. space in between number and suit is not recognized as the same as the card characters.
+		 * For example: S A != SA 
+		 */
 	}
 
 	@Test
 	public void testAskCardPC() {
-		
+		/*
+		 * No bug in input of any character in "You asked for:"
+		 * because the response is getting a card regardless any character besides the card characters that
+		 * are in the PC hand.
+		 */
 	}
 
 	@Test
 	public void testGetFromDeck() {
-		//assertEquals("0", game.getFromDeck(0));
+		/*
+		 * 1. Cards from deck are received from the top pile first.
+		 */
 	}
 
 	@Test
