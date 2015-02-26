@@ -30,6 +30,8 @@ public class game {
 	public String response;
 	public boolean drawcard;
 	public Integer bookcount;
+	public Integer checkcardok = 0;
+	public Integer gotfromdeck = 0;
 
 	public static void main(String[] args) {
 		game goFish = new game();
@@ -71,8 +73,9 @@ public class game {
 			System.out.println();
 			/* Checks for the total number of dropped books. There should be a total of 13 books dropped by both PC and human.
 			*/
-			int totalbooks = humandroppedbooks.size() + pcdroppedbooks.size();
-			if(totalbooks ==13) booksdone = true;
+			int totalbooks = goFish.checkTotalBooks();
+			if(totalbooks==13) booksdone = true;
+			
 		}
 		/* When all books have been dropped, the program checks for the winner and exits the program.
 		*/
@@ -82,7 +85,12 @@ public class game {
 		}
 		
 	}
-	
+
+	/* Returns total number of books dropped from both human and PC hands */
+	public int checkTotalBooks() {
+		int totalbooks = humandroppedbooks.size() + pcdroppedbooks.size();
+		return totalbooks;
+	}
 	/* Creates a randomized set of values from 1-52 to represent each card. Cards are then "shuffled" into ArrayLists for the player, the PC and the remaining card deck.
 	*/
 	public void randomCards() {
@@ -191,30 +199,35 @@ public class game {
 		else printCards();
 	}
 
-	/* When the card requested isn't available from the opponent's deck, the top card is drawn from the main deck of cards. If the deck runs out of cards, the first card from the opponent's hand is drawn instead.
+	/* When the card requested isn't available from the opponent's deck, the top card is drawn from the main deck of cards. If the deck runs out of cards, the first card from the opponent's hand is drawn instead. Returns gotfromdeck = 1 when it's the human's turn and gotfromdeck = 2 when it's the PC's turn.
 	*/
-	public void getFromDeck(int turn) {
+	public int getFromDeck(int turn) {
 		if(deckstack.size()>0) {
 			if(turn == 0) {
 				humanhand.add(deckstack.get(0)); //top card is added to human's hand
 				deckstack.remove(0); //top card is removed from deck
+				gotfromdeck = 1;
 			}
 			else if(turn==1) {
 				pchand.add(deckstack.get(0)); //top card is added to PC's hand
 				deckstack.remove(0); //top card is removed from deck
+				gotfromdeck = 2;
 			}
 		}
 		else {
 			if(turn==0) {
 				humanhand.add(pchand.get(0)); // top card is added from pc to human hand
 				pchand.remove(0); //top card is removed from pc's hand
+				gotfromdeck = 1;
 			}
 			else if(turn==1) {
 				pchand.add(humanhand.get(0)); // top card is added from human to pc hand
 				humanhand.remove(0); //top card is removed from human's hand
+				gotfromdeck = 2;
 			}
 		}
 		printCards();
+		return gotfromdeck;
 	}
 
 	//Converts the randomly-generated number into a corresponding string value
