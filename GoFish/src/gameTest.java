@@ -132,7 +132,12 @@ public class gameTest {
 		assertEquals("48", "C10", game.getCard(48));
 		assertEquals("49", "CJ", game.getCard(49));
 		assertEquals("50", "CQ", game.getCard(50));
-		assertEquals("51", "CK", game.getCard(51));		
+		assertEquals("51", "CK", game.getCard(51));
+		//test for bugs, errors
+		assertEquals("52", "D2", game.getCard(1)); //52 is beyond the random number generator
+		assertEquals("0", "dA", game.getCard(0)); //lower case issue
+		assertEquals("0", "D A", game.getCard(0)); //space issue
+		
 	}
 
 }
