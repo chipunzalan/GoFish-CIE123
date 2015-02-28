@@ -86,7 +86,7 @@ public class game {
 		
 	}
 
-	/* Returns total number of books dropped from both human and PC hands */
+	/* Returns total number of books dropped from both human and PC hands */	
 	public int checkTotalBooks() {
 		int totalbooks = humandroppedbooks.size() + pcdroppedbooks.size();
 		return totalbooks;
@@ -126,23 +126,23 @@ public class game {
 			humanhand.add(getCard(human.get(i)));
 		}
 		System.out.println(humanhand+" // "+humanhand.size());
-		System.out.print("PC's deck: ");
+		// System.out.print("PC's deck: ");
 		for(int i=0; i<pc.size(); i++) { //converting integer values for the PC hand into string
 			pchand.add(getCard(pc.get(i)));
 		}
-		System.out.println(pchand+" // "+pchand.size());
-		System.out.print("Cards: ");
+		// System.out.println(pchand+" // "+pchand.size());
+		// System.out.print("Cards: ");
 		for(int i=0; i<deck.size(); i++) { //converting integer values for the deck into string
 			deckstack.add(getCard(deck.get(i)));
 		}
-		System.out.println(deckstack +" // "+deckstack.size());
+		// System.out.println(deckstack +" // "+deckstack.size());
 	}
 
 	//Outputs the current deck of the human and opponent
 	//For checking purposes
 	public void printCards() {
-		System.out.println("Player: "+humanhand+" //"+humanhand.size());
-		System.out.println("PC: "+pchand+" //"+pchand.size());
+		System.out.println("Player's deck: "+humanhand+" //"+humanhand.size());
+		//System.out.println("PC: "+pchand+" //"+pchand.size());
 		// System.out.println("Deck: "+deckstack+" //"+deckstack.size());
 	}
 
@@ -203,6 +203,7 @@ public class game {
 	*/
 	public int getFromDeck(int turn) {
 		if(deckstack.size()>0) {
+			System.out.println("Go Fish!");
 			if(turn == 0) {
 				humanhand.add(deckstack.get(0)); //top card is added to human's hand
 				deckstack.remove(0); //top card is removed from deck
@@ -259,7 +260,7 @@ public class game {
 
 	//Checks the number of books formed by cards from human's deck. Prints out a count of cards per kind
 	public void checkHumanBooks() {
-		System.out.print("Human Books|");
+		// System.out.print("Human Books|");
 		for (int i=0; i < cardletter.length; i++) {
 			humanbooks[i]=0;
 			for(int j = 0; j<humanhand.size(); j++) {
@@ -269,9 +270,9 @@ public class game {
 					humanbooks[i]++;
 				}
 			}
-			System.out.print(cardletter[i]+":"+humanbooks[i]+"|");
+			// System.out.print(cardletter[i]+":"+humanbooks[i]+"|");
 		}
-		System.out.println();
+		// System.out.println();
 	}
 
 	//Checks for completed books in human's deck, drops completed books and removes respective cards from human's deck
@@ -288,12 +289,12 @@ public class game {
 				humandroppedbooks.add(cardletter[i]); //adds 
 			}
 		}
-		System.out.println(humandroppedbooks+"//"+humandroppedbooks.size());
+		System.out.println("Player's books: "+humandroppedbooks+"//"+humandroppedbooks.size());
 	}
 
 	//Checks the number of books formed by cards from PC's deck. Prints out a count of cards per kind
 	public void checkPCBooks() {
-		System.out.print("PC Books|");
+		// System.out.print("PC Books|");
 		for (int i=0; i < cardletter.length; i++) {
 			pcbooks[i]=0;
 			for(int j = 0; j<pchand.size(); j++) {
@@ -303,9 +304,9 @@ public class game {
 					pcbooks[i]++;
 				}
 			}
-			System.out.print(cardletter[i]+":"+pcbooks[i]+"|");
+			//System.out.print(cardletter[i]+":"+pcbooks[i]+"|");
 		}
-		System.out.println();
+		// System.out.println();
 	}
 
 	//Checks for completed books in PC's hand, drops completed books and removes respective cards from PC's hand
@@ -322,7 +323,7 @@ public class game {
 				pcdroppedbooks.add(cardletter[i]);
 			}
 		}
-		System.out.println(pcdroppedbooks + "//" +pcdroppedbooks.size());
+		// System.out.println(pcdroppedbooks + "//" +pcdroppedbooks.size());
 	}
 
 	//Compares number of completed books and outputs results
