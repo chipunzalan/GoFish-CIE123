@@ -1,10 +1,15 @@
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 
 
 public class gameTest {
 
+	//public class gameTest2 extends gameTest {
+	game gamesample = new game();
+	
 	@Test
 	public void testMain() {
 		//test main function
@@ -14,6 +19,12 @@ public class gameTest {
 		 * are in the PC hand.
 		 * 
 		 */
+		
+	}
+	
+	@Test
+	public void testCheckTotalBooks() {
+		assertNotNull(gamesample.checkTotalBooks());
 	}
 
 	@Test
@@ -90,7 +101,7 @@ public class gameTest {
 		assertEquals("6", "D7", game.getCard(6));
 		assertEquals("7", "D8", game.getCard(7));
 		assertEquals("8", "D9", game.getCard(8));
-		assertEquals("9", "D10", game.getCard(9));
+		assertEquals("9", "DT", game.getCard(9));
 		assertEquals("10", "DJ", game.getCard(10));
 		assertEquals("11", "DQ", game.getCard(11));
 		assertEquals("12", "DK", game.getCard(12));
@@ -103,7 +114,7 @@ public class gameTest {
 		assertEquals("19", "H7", game.getCard(19));
 		assertEquals("20", "H8", game.getCard(20));
 		assertEquals("21", "H9", game.getCard(21));
-		assertEquals("22", "H10", game.getCard(22));
+		assertEquals("22", "HT", game.getCard(22));
 		assertEquals("23", "HJ", game.getCard(23));
 		assertEquals("24", "HQ", game.getCard(24));
 		assertEquals("25", "HK", game.getCard(25));
@@ -116,7 +127,7 @@ public class gameTest {
 		assertEquals("32", "S7", game.getCard(32));
 		assertEquals("33", "S8", game.getCard(33));
 		assertEquals("34", "S9", game.getCard(34));
-		assertEquals("35", "S10", game.getCard(35));
+		assertEquals("35", "ST", game.getCard(35));
 		assertEquals("36", "SJ", game.getCard(36));
 		assertEquals("37", "SQ", game.getCard(37));
 		assertEquals("38", "SK", game.getCard(38));
@@ -129,7 +140,7 @@ public class gameTest {
 		assertEquals("45", "C7", game.getCard(45));
 		assertEquals("46", "C8", game.getCard(46));
 		assertEquals("47", "C9", game.getCard(47));
-		assertEquals("48", "C10", game.getCard(48));
+		assertEquals("48", "CT", game.getCard(48));
 		assertEquals("49", "CJ", game.getCard(49));
 		assertEquals("50", "CQ", game.getCard(50));
 		assertEquals("51", "CK", game.getCard(51));
@@ -140,4 +151,31 @@ public class gameTest {
 		
 	}
 
+	@Test
+	public void testCheckHumanBooks() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testDropHumanBooks() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testCheckPCBooks() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testDropPCBooks() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testDeclareWinner() {
+		fail("Not yet implemented");
+	}
+
+	
+	//}
 }
